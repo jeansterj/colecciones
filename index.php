@@ -1,3 +1,12 @@
+<?php
+
+require_once('./php_librarys/bd.php');
+
+$cartas = selectCard();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -49,19 +58,40 @@
 
 <body>
 
+
+<div class="container">
+
+
+<?php
+foreach ($cartas as $carta) { ?>
+
   <div class="card clickable-card " style="width: 18rem;">
-    <div class="card bg-dark" style="width: 18rem; color: white;">
-      <img src="img/dark_Magician.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h4>Nivel 7</h4>
-        <h2 class="card-title">Dark Magician</h2>
-        <h4>Lanzador de Conjuros</h4>
-        <p class="card-text">El mas grande de los magos en relación con el ataque y la defensa</p>
-        <p>ATK 2500</p>
-        <p>ATK 2100</p>
-      </div>
+  <div class="card bg-dark" style="width: 18rem; color: white;">
+    <img src="img/dark_Magician.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h4><?php echo "Nivel ". $carta['nivel'] ?></h4>
+      <h4><?php echo "Atributo ". $carta['Atributo'] ?></h4>
+      <h2 class="card-title"><?php echo  $carta['nombre'] ?></h2>
+      <h4><?php echo "Tipo  ". $carta['Tipo'] ?></h4>
+      <p class="card-text"><?php echo $carta['descripcion'] ?></p>
+      <p><?php echo $carta['ataque'] . " ATK"?></p>
+      <p><?php echo $carta['defensa']. " DEF" ?></p>
     </div>
   </div>
+</div>
+
+<?php }?>
+
+
+
+
+
+
+</div>
+
+
+
+
 
 
 
