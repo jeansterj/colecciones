@@ -50,11 +50,11 @@ function selectCard()
 
     from mounstro
     
-    JOIN 
+    LEFT JOIN 
     mounstro_Tipo ON mounstro.idMounstro = mounstro_Tipo.idMounstro
-    JOIN 
+    LEFT JOIN 
     tipo ON tipo.idTipo = mounstro_Tipo.idTipo
-    JOIN 
+    LEFT JOIN 
     atributo ON mounstro.atributo = atributo.idAtributo
     GROUP BY 
     mounstro.nombre, 
@@ -80,16 +80,16 @@ function selectCard()
 
 }
 
-function insertCard($nombre,$descripcion,$ataque,$defensa,$atributo,$nivel,$img) 
+function insertCard($nombre,$descripcion,$ataque,$defensa,$atributo,$nivel,$img,$tipos_seleccionados) 
 
 {
 
   $conexion = openBd();
 
+
   $sentenciaSelect =" insert into mounstro (nombre,descripcion,ataque,defensa,atributo,nivel,img)
   values (:nombre,:descripcion,:ataque,:defensa,:atributo,:nivel,:img) 
   ;";
-
   
   $sentencia = $conexion->prepare($sentenciaSelect);
   $sentencia->bindParam(':nombre', $nombre);
@@ -97,11 +97,23 @@ function insertCard($nombre,$descripcion,$ataque,$defensa,$atributo,$nivel,$img)
   $sentencia->bindParam(':ataque', $ataque);
   $sentencia->bindParam(':defensa', $defensa);
   $sentencia->bindParam(':atributo', $atributo);
-  $sentencia->bindParam(':nivel', $nievl);
+  $sentencia->bindParam(':nivel', $nivel);
   $sentencia->bindParam(':img', $img);
 
 
   $sentencia->execute();
+
+  $idMounstro = $conexion->lastInsertId();
+  
+  foreach ($tipos_seleccionados as $tipo) {
+    $sentenciaTipo  = "insert into mounstro_Tipo (idMounstro, idTipo) values (:idMounstro, :idTipo)";
+    $sentenciaTipo  = $conexion->prepare($sentenciaTipo );
+    $sentenciaTipo ->bindParam(':idMounstro', $idMounstro);
+    $sentenciaTipo ->bindParam(':idTipo', $tipo);
+    $sentenciaTipo ->execute();
+}
+
+
 
   $conexion = closeBd();
 

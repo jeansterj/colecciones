@@ -55,7 +55,7 @@ include('./php_librarys/bd.php');
 
 <body>
 
-<form action="" method="post" class="bodyRegister">
+<form action="./php_controllers/cardController.php" method="post" class="bodyRegister">
 <div class="container" style="color: white;">
 <div class="card">
 <div class="card-header">
@@ -64,29 +64,29 @@ include('./php_librarys/bd.php');
   <div class="card-body">
   <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Kuriboh">
+        <input type="text" class="form-control" id="exampleFormControlInput1" name='nombre' placeholder="Kuriboh">
     </div>
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Durante el cálculo de daño, si el monstruo de tu adversario ataca (Efecto Rápido): puedes descartar esta carta; no recibes daño de batalla de esa batalla."></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='descripcion' placeholder="Durante el cálculo de daño, si el monstruo de tu adversario ataca (Efecto Rápido): puedes descartar esta carta; no recibes daño de batalla de esa batalla."></textarea>
     </div>
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">ATK</label>
-        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="300">
+        <input type="number" class="form-control" id="exampleFormControlInput1" name='ataque' placeholder="300">
     </div>
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">DEF</label>
-        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="200">
+        <input type="number" class="form-control" id="exampleFormControlInput1" name='defensa' placeholder="200">
     </div>
     <div class="mb-3">
-      <select class="form-select" aria-label="Default select example">
+      <select class="form-select" aria-label="Default select example" name='atributo'>
         <option selected>Selecciona un atributo</option>
-        <option value="Luz">Luz</option>
-        <option value="Oscuridad">Oscuridad</option>
-        <option value="Fuego">Fuego</option>
-        <option value="Agua">Agua</option>
-        <option value="Tierra">Tierra</option>
-        <option value="Viento">Viento</option>
+        <option value="1">Luz</option>
+        <option value="2">Oscuridad</option>
+        <option value="3">Fuego</option>
+        <option value="4">Agua</option>
+        <option value="5">Tierra</option>
+        <option value="6">Viento</option>
   </select>
     </div>
 
@@ -94,55 +94,55 @@ include('./php_librarys/bd.php');
 
 
     <div class="form-check">
-          <input type="checkbox" class="btn-check" id="Bestia-check" autocomplete="off">
+          <input type="checkbox" class="btn-check" id="Bestia-check" autocomplete="off" name="tipos[]" value="1">
           <label class="btn btn-primary" for="Bestia-check">Bestia</label>
         
-          <input type="checkbox" class="btn-check" id="Lanzador-check" autocomplete="off">
+          <input type="checkbox" class="btn-check" id="Lanzador-check" autocomplete="off"name="tipos[]" value="2">
           <label class="btn btn-primary" for="Lanzador-check">Lanzador de conjuros</label>
         
-          <input type="checkbox" class="btn-check" id="Ciberso-check" autocomplete="off">
+          <input type="checkbox" class="btn-check" id="Ciberso-check" autocomplete="off" name="tipos[]" value="3">
           <label class="btn btn-primary" for="Ciberso-check">Ciberso</label>
       
-        <input type="checkbox" class="btn-check" id="Guerrero-check" autocomplete="off">
+        <input type="checkbox" class="btn-check" id="Guerrero-check" autocomplete="off" name="tipos[]" value="4">
         <label class="btn btn-primary" for="Guerrero-check">Guerrero</label>
 
-        <input type="checkbox" class="btn-check" id="Demonio-check" autocomplete="off">
+        <input type="checkbox" class="btn-check" id="Demonio-check" autocomplete="off" name="tipos[]" value="5">
         <label class="btn btn-primary" for="Demonio-check">Demonio</label>
 
-        <input type="checkbox" class="btn-check" id="Bestia-Divina-check" autocomplete="off">
+        <input type="checkbox" class="btn-check" id="Bestia-Divina-check" autocomplete="off" name="tipos[]" value="6"> 
          <label class="btn btn-primary" for="Bestia-Divina-check">Bestia Divina</label>
 
         <br><br>
 
-        <input type="checkbox" class="btn-check" id="Dragon-check" autocomplete="off">
+        <input type="checkbox" class="btn-check" id="Dragon-check" autocomplete="off" name="tipos[]" value="7">
          <label class="btn btn-primary" for="Dragon-check">Dragon</label>
 
-        <input type="checkbox" class="btn-check" id="Bestia-Alada-check" autocomplete="off">
+        <input type="checkbox" class="btn-check" id="Bestia-Alada-check" autocomplete="off"name="tipos[]" value="8">
         <label class="btn btn-primary" for="Bestia-Alada-check">Bestia Alada</label>
 
-        <input type="checkbox" class="btn-check" id="Ilusion-check" autocomplete="off">
+        <input type="checkbox" class="btn-check" id="Ilusion-check" autocomplete="off" name="tipos[]" value="9">
         <label class="btn btn-primary" for="Ilusion-check">Ilusion</label>
 
-        <input type="checkbox" class="btn-check" id="Maquina-check" autocomplete="off">
-        <label class="btn btn-primary" for="Maquina-check">Maquina</label>
+        <input type="checkbox" class="btn-check" id="Maquina-check" autocomplete="off"name="tipos[]" value="10">
+        <label class="btn btn-primary" for="Maquina-check" >Maquina</label>
 
-        <input type="checkbox" class="btn-check" id="Planta-check" autocomplete="off">
-        <label class="btn btn-primary" for="Planta-check">Planta</label>
+        <input type="checkbox" class="btn-check" id="Planta-check" autocomplete="off"name="tipos[]" value="11">
+        <label class="btn btn-primary" for="Planta-check" >Planta</label>
 
-        <input type="checkbox" class="btn-check" id="Trueno-check" autocomplete="off">
-        <label class="btn btn-primary" for="Trueno-check">Trueno</label>
+        <input type="checkbox" class="btn-check" id="Trueno-check" autocomplete="off"name="tipos[]" value="12">
+        <label class="btn btn-primary" for="Trueno-check" >Trueno</label>
 
         <br><br>
     </div>
 
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Nivel</label>
-        <input type="number" name="nota_media" id="exampleFormControlInput1" min="0" max="12" class="form-control" required><br><br>
+        <input type="number" name="nivel" id="exampleFormControlInput1" min="0" max="12" class="form-control" required><br><br>
       </div>
      
       <div class="mb-3">
        <label for="formFile" class="form-label">Imagen</label>
-       <input class="form-control" type="file" id="formFile">
+       <input class="form-control" type="file" id="formFile" name="img">
       </div>
 
       <div class="col-12">
