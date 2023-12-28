@@ -41,7 +41,7 @@ $cartas = selectCard();
               Opciones de Cartas
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Crear</a></li>
+              <li><a class="dropdown-item" href="./registroCard.php">Crear</a></li>
               <li><a class="dropdown-item" href="#">Modificar</a></li>
               <li><a class="dropdown-item" href="#">Eliminar</a></li>
             </ul>
@@ -61,18 +61,18 @@ $cartas = selectCard();
 
 <div class="container">
 
-
+                                                                                                                  
 <?php
 foreach ($cartas as $carta) { ?>
 
   <div class="card clickable-card " style="width: 18rem;">
   <div class="card bg-dark" style="width: 18rem; color: white;">
-    <img src="img/dark_Magician.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
+  <img src="img/<?php echo $carta['img']; ?>" class="card-img-top" alt="...">
+      <div class="card-body">
       <h4><?php echo "Nivel ". $carta['nivel'] ?></h4>
       <h4><?php echo "Atributo ". $carta['Atributo'] ?></h4>
       <h2 class="card-title"><?php echo  $carta['nombre'] ?></h2>
-      <h4><?php echo "Tipo  ". $carta['Tipo'] ?></h4>
+      <h4><?php echo "Tipo  ". $carta['Tipos'] ?></h4>
       <p class="card-text"><?php echo $carta['descripcion'] ?></p>
       <p><?php echo $carta['ataque'] . " ATK"?></p>
       <p><?php echo $carta['defensa']. " DEF" ?></p>

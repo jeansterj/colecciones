@@ -1,3 +1,10 @@
+<?php
+
+include('./php_librarys/bd.php');
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -48,8 +55,7 @@
 
 <body>
 
-<form class="bodyRegister">
-
+<form action="" method="post" class="bodyRegister">
 <div class="container" style="color: white;">
 <div class="card">
 <div class="card-header">
@@ -140,7 +146,8 @@
       </div>
 
       <div class="col-12">
-        <button class="btn btn-primary" type="submit">Submit form</button>
+        <button class="btn btn-primary" type="submit" name="insert">Registrar Carta</button>
+        <button class="btn btn-danger" onclick="window.location.href='./index.php';">Cancelar</button>
       </div>
 
 

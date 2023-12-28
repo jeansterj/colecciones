@@ -43,9 +43,10 @@ function selectCard()
     mounstro.descripcion,
     mounstro.ataque,
     mounstro.defensa,
-    tipo.nombreTipo AS Tipo,
+    GROUP_CONCAT(tipo.nombreTipo SEPARATOR '/') AS Tipos,
     atributo.nombreAtributo AS Atributo,
-    mounstro.nivel
+    mounstro.nivel,
+    mounstro.img
 
     from mounstro
     
@@ -54,7 +55,16 @@ function selectCard()
     JOIN 
     tipo ON tipo.idTipo = mounstro_Tipo.idTipo
     JOIN 
-    atributo ON mounstro.atributo = atributo.idAtributo;";
+    atributo ON mounstro.atributo = atributo.idAtributo
+    GROUP BY 
+    mounstro.nombre, 
+    mounstro.descripcion,
+    mounstro.ataque,
+    mounstro.defensa,
+    atributo.nombreAtributo,
+    mounstro.nivel,
+    mounstro.img;
+    ";
 
     
     $sentencia = $conexion->prepare($sentenciaSelect);
@@ -67,6 +77,33 @@ function selectCard()
     $conexion = closeBd();
 
     return $resultado;
+
+}
+
+function insertCard($nombre,$descripcion,$ataque,$defensa,$atributo,$nivel,$img) 
+
+{
+
+  $conexion = openBd();
+
+  $sentenciaSelect =" insert into mounstro (nombre,descripcion,ataque,defensa,atributo,nivel,img)
+  values (:nombre,:descripcion,:ataque,:defensa,:atributo,:nivel,:img) 
+  ;";
+
+  
+  $sentencia = $conexion->prepare($sentenciaSelect);
+  $sentencia->bindParam(':nombre', $nombre);
+  $sentencia->bindParam(':descripcion', $descripcion);
+  $sentencia->bindParam(':ataque', $ataque);
+  $sentencia->bindParam(':defensa', $defensa);
+  $sentencia->bindParam(':atributo', $atributo);
+  $sentencia->bindParam(':nivel', $nievl);
+  $sentencia->bindParam(':img', $img);
+
+
+  $sentencia->execute();
+
+  $conexion = closeBd();
 
 }
 
