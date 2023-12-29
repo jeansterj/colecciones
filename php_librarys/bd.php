@@ -3,42 +3,42 @@
 function openBd()
 
 {
-    
-    $servername = "localhost";
-    $username = "root";
-    $password = "mysql";
-    
-    try {
-      $conn = new PDO("mysql:host=$servername;dbname=coleccions", $username, $password);
-      // set the PDO error mode to exception
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $conn->exec("set names utf8");
-    } catch(PDOException $e) {
-      echo "Connection failed: " . $e->getMessage();
-    }
 
-    return $conn;
+  $servername = "localhost";
+  $username = "root";
+  $password = "mysql";
 
+  try {
+    $conn = new PDO("mysql:host=$servername;dbname=coleccions", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->exec("set names utf8");
+  } catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+  }
+
+  return $conn;
 }
 
 function closeBd()
 
 {
-return null;    
+  return null;
 }
 
-function selectCard() 
+function selectCard()
 
 {
 
-    $conexion = openBd();
-    
-    
-    $sentenciaSelect =
-    
-    
+  $conexion = openBd();
+
+
+  $sentenciaSelect =
+
+
     "select 
 
+    mounstro.idMounstro,
     mounstro.nombre, 
     mounstro.descripcion,
     mounstro.ataque,
@@ -57,6 +57,7 @@ function selectCard()
     LEFT JOIN 
     atributo ON mounstro.atributo = atributo.idAtributo
     GROUP BY 
+    mounstro.idMounstro,
     mounstro.nombre, 
     mounstro.descripcion,
     mounstro.ataque,
@@ -66,32 +67,31 @@ function selectCard()
     mounstro.img;
     ";
 
-    
-    $sentencia = $conexion->prepare($sentenciaSelect);
-    $sentencia->execute();
 
-    $resultado = $sentencia->fetchAll();
+  $sentencia = $conexion->prepare($sentenciaSelect);
+  $sentencia->execute();
+
+  $resultado = $sentencia->fetchAll();
 
 
 
-    $conexion = closeBd();
+  $conexion = closeBd();
 
-    return $resultado;
-
+  return $resultado;
 }
 
-function insertCard($nombre,$descripcion,$ataque,$defensa,$atributo,$nivel,$img,$tipos_seleccionados) 
+function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel, $img, $tipos_seleccionados)
 
 {
 
   $conexion = openBd();
 
 
-  $sentenciaSelect =" insert into mounstro (nombre,descripcion,ataque,defensa,atributo,nivel,img)
+  $sentenciaInsert = " insert into mounstro (nombre,descripcion,ataque,defensa,atributo,nivel,img)
   values (:nombre,:descripcion,:ataque,:defensa,:atributo,:nivel,:img) 
   ;";
-  
-  $sentencia = $conexion->prepare($sentenciaSelect);
+
+  $sentencia = $conexion->prepare($sentenciaInsert);
   $sentencia->bindParam(':nombre', $nombre);
   $sentencia->bindParam(':descripcion', $descripcion);
   $sentencia->bindParam(':ataque', $ataque);
@@ -104,19 +104,16 @@ function insertCard($nombre,$descripcion,$ataque,$defensa,$atributo,$nivel,$img,
   $sentencia->execute();
 
   $idMounstro = $conexion->lastInsertId();
-  
+
   foreach ($tipos_seleccionados as $tipo) {
     $sentenciaTipo  = "insert into mounstro_Tipo (idMounstro, idTipo) values (:idMounstro, :idTipo)";
-    $sentenciaTipo  = $conexion->prepare($sentenciaTipo );
-    $sentenciaTipo ->bindParam(':idMounstro', $idMounstro);
-    $sentenciaTipo ->bindParam(':idTipo', $tipo);
-    $sentenciaTipo ->execute();
-}
+    $sentenciaTipo  = $conexion->prepare($sentenciaTipo);
+    $sentenciaTipo->bindParam(':idMounstro', $idMounstro);
+    $sentenciaTipo->bindParam(':idTipo', $tipo);
+    $sentenciaTipo->execute();
+  }
 
 
 
   $conexion = closeBd();
-
 }
-
-?>
