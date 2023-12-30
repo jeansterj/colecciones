@@ -62,30 +62,30 @@ $atributos = selectAtribut();
           <div class="card-body">
 
 
-            <h4><button id="nivel<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalNivel<?= $carta['idMounstro'] ?>">
+            <h4><button class="btn btn-lg btn-outline-light" id="nivel<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalNivel<?= $carta['idMounstro'] ?>">
                 <?php echo "Nivel " . $carta['nivel'] ?></button></h4>
 
-            <h4><button id="atributo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtributo<?= $carta['idMounstro'] ?>">
+            <h4><button class="btn btn-lg btn-outline-light" id="atributo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtributo<?= $carta['idMounstro'] ?>">
                 <?php echo "Atributo " . $carta['Atributo'] ?></button></h4>
 
-            <h2 class="card-title"><button id="nombre<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalnombre<?= $carta['idMounstro'] ?>">
+            <h2 class="card-title"><button class="btn btn-lg btn-outline-light" id="nombre<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalnombre<?= $carta['idMounstro'] ?>">
                 <?php echo  $carta['nombre'] ?></button></h2>
 
-            <h4><button id="tipo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalTipos<?= $carta['idMounstro'] ?>">
+            <h4><button class="btn btn-lg btn-outline-light" id="tipo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalTipos<?= $carta['idMounstro'] ?>">
                 <?php echo "Tipo  " . $carta['Tipos'] ?></button></h4>
 
-            <p class="card-text"><button id="descripcion<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDescripcion<?= $carta['idMounstro'] ?>">
+            <p class="card-text"><button class="btn btn-lg btn-outline-light" id="descripcion<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDescripcion<?= $carta['idMounstro'] ?>">
                 <?php echo $carta['descripcion'] ?></button></p>
 
-            <p><button id="atkBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtaque<?= $carta['idMounstro'] ?>">
+            <p><button class="btn btn-lg btn-outline-light" id="atkBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtaque<?= $carta['idMounstro'] ?>">
                 <?php echo $carta['ataque'] . " ATK" ?></button></p>
 
-            <p><button id="defBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDefensa<?= $carta['idMounstro'] ?>">
+            <p><button class="btn btn-lg btn-outline-light" id="defBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDefensa<?= $carta['idMounstro'] ?>">
                 <?php echo $carta['defensa'] . " DEF" ?></button></p>
 
-            <button id="habilitar<?php echo $carta['idMounstro'] ?>" onclick="habilitarBotones(<?php echo $carta['idMounstro'] ?>)">modificacion</button>
+            <button class="btn btn-success" id="habilitar<?php echo $carta['idMounstro'] ?>" onclick="habilitarBotones(<?php echo $carta['idMounstro'] ?>)"><img class="ajusteImg" src="./img/modif.png" alt="modificar"></button>
             <button style="display: none;" id="deshabilitar<?php echo $carta['idMounstro'] ?>" onclick="deshabilitarBotones(<?php echo $carta['idMounstro'] ?>)">completar modificacion</button>
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirDelete<?= $carta['idMounstro'] ?>">Eliminar Carta</button>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirDelete<?= $carta['idMounstro'] ?>"><img class="ajusteImg" src="./img/eliminar.png" alt="eliminarr"></button>
 
           </div>
         </div>
@@ -140,7 +140,7 @@ $atributos = selectAtribut();
                 <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
                 <input autofocus class="form-control mb-3" type="text" name="newNombre">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" name="updateNombre">Confirmar
+                <button type="submit" class="btn btn-success" name="updateNombre">Confirmar
                   modificacion</button>
               </form>
 
@@ -169,7 +169,7 @@ $atributos = selectAtribut();
                 <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
                 <input autofocus class="form-control mb-3" type="text" name="newDescripcion">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" name="updateDescripcion">Confirmar
+                <button type="submit" class="btn btn-success" name="updateDescripcion">Confirmar
                   modificacion</button>
               </form>
 
@@ -198,7 +198,7 @@ $atributos = selectAtribut();
                 <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
                 <input autofocus class="form-control mb-3" type="text" name="newNivel">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" name="updateNivel">Confirmar
+                <button type="submit" class="btn btn-success" name="updateNivel">Confirmar
                   modificacion</button>
               </form>
 
@@ -224,7 +224,7 @@ $atributos = selectAtribut();
                 <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
                 <input autofocus class="form-control mb-3" type="text" name="newnAtaque">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" name="updateAtk">Confirmar
+                <button type="submit" class="btn btn-success" name="updateAtk">Confirmar
                   modificacion</button>
               </form>
 
@@ -253,7 +253,7 @@ $atributos = selectAtribut();
                 <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
                 <input autofocus class="form-control mb-3" type="text" name="newDefensa">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" name="updateDef">Confirmar
+                <button type="submit" class="btn btn-success" name="updateDef">Confirmar
                   modificacion</button>
               </form>
 
@@ -294,7 +294,7 @@ $atributos = selectAtribut();
                   </div>
                 <?php } ?>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" name="updateTipos">Confirmar
+                <button type="submit" class="btn btn-success" name="updateTipos">Confirmar
                   modificacion</button>
               </form>
 
@@ -332,7 +332,7 @@ $atributos = selectAtribut();
 
                 </select>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" name="updateAtribut">Confirmar
+                <button type="submit" class="btn btn-success" name="updateAtribut">Confirmar
                   modificacion</button>
               </form>
 
