@@ -80,6 +80,50 @@ function selectCard()
   return $resultado;
 }
 
+function selectTypes()
+
+{
+
+  $conexion = openBd();
+
+
+  $sentenciaSelect =
+
+    "select * from tipo;";
+
+  $sentencia = $conexion->prepare($sentenciaSelect);
+  $sentencia->execute();
+
+  $resultado = $sentencia->fetchAll();
+
+
+  $conexion = closeBd();
+
+  return $resultado;
+}
+
+function selectAtribut()
+
+{
+
+  $conexion = openBd();
+
+
+  $sentenciaSelect =
+
+    "select * from atributo;";
+
+  $sentencia = $conexion->prepare($sentenciaSelect);
+  $sentencia->execute();
+
+  $resultado = $sentencia->fetchAll();
+
+
+  $conexion = closeBd();
+
+  return $resultado;
+}
+
 function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel, $img, $tipos_seleccionados)
 
 {
@@ -105,6 +149,13 @@ function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel,
 
   $idMounstro = $conexion->lastInsertId();
 
+ insertTypes($tipos_seleccionados,$idMounstro,$conexion);
+
+
+  $conexion = closeBd();
+}
+
+function insertTypes($tipos_seleccionados,$idMounstro,$conexion) {
   foreach ($tipos_seleccionados as $tipo) {
     $sentenciaTipo  = "insert into mounstro_Tipo (idMounstro, idTipo) values (:idMounstro, :idTipo)";
     $sentenciaTipo  = $conexion->prepare($sentenciaTipo);
@@ -112,8 +163,200 @@ function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel,
     $sentenciaTipo->bindParam(':idTipo', $tipo);
     $sentenciaTipo->execute();
   }
+}
 
+function updateName($idMounstro,$nombre)
+{
+
+  $conexion = openBd();
+
+  $sentenciaUpdate =
+
+    "update mounstro 
+    set nombre = :nombre
+    where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaUpdate);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+  $sentencia->bindParam(':nombre', $nombre);
+
+
+  $sentencia->execute();
+  $conexion = closeBd();
+}
+
+function updateDescription($idMounstro,$descripcion)
+{
+
+  $conexion = openBd();
+
+  $sentenciaUpdate =
+
+    "update mounstro 
+    set descripcion = :descripcion
+    where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaUpdate);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+  $sentencia->bindParam(':descripcion', $descripcion);
+
+
+  $sentencia->execute();
+
+  $conexion = closeBd();
+}
+
+function updateLevel($idMounstro,$nivel)
+{
+
+  $conexion = openBd();
+
+  $sentenciaUpdate =
+
+    "update mounstro 
+    set nivel = :nivel
+    where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaUpdate);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+  $sentencia->bindParam(':nivel', $nivel);
+
+
+  $sentencia->execute();
+
+  $conexion = closeBd();
+}
+
+function updateAtk($idMounstro,$ataque)
+{
+
+  $conexion = openBd();
+
+  $sentenciaUpdate =
+
+    "update mounstro 
+    set ataque = :ataque
+    where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaUpdate);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+  $sentencia->bindParam(':ataque', $ataque);
+
+
+  $sentencia->execute();
+
+  $conexion = closeBd();
+}
+
+function updateDef($idMounstro,$defensa)
+{
+
+  $conexion = openBd();
+
+  $sentenciaUpdate =
+
+    "update mounstro 
+    set defensa = :defensa
+    where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaUpdate);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+  $sentencia->bindParam(':defensa', $defensa);
+
+
+  $sentencia->execute();
+
+  $conexion = closeBd();
+}
+
+function updateAtribut($idMounstro,$atributo)
+{
+
+  $conexion = openBd();
+
+  $sentenciaUpdate =
+
+    "update mounstro 
+    set atributo = :atributo
+    where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaUpdate);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+  $sentencia->bindParam(':atributo', $atributo);
+
+
+  $sentencia->execute();
+
+  $conexion = closeBd();
+}
+
+function updateTypes($idMounstro,$tipos_seleccionados)
+{
+
+  $conexion = openBd();
+
+    deleteTypes($conexion,$idMounstro);
+
+    insertTypes($tipos_seleccionados,$idMounstro,$conexion);
 
 
   $conexion = closeBd();
+}
+
+function updateImg($idMounstro,$img)
+{
+
+  $conexion = openBd();
+
+  $sentenciaUpdate =
+
+    "update mounstro 
+    set img = :img
+    where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaUpdate);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+  $sentencia->bindParam(':img', $img);
+
+
+  $sentencia->execute();
+
+  $conexion = closeBd();
+}
+
+function deleteCard($idMounstro) {
+
+  $conexion = openBd();
+
+  deleteTypes($conexion,$idMounstro);
+
+  $sentenciaDelete =
+
+  "delete from mounstro
+  where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaDelete);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+
+  $sentencia->execute();
+
+  $conexion = closeBd();
+
+}
+
+
+function deleteTypes($conexion,$idMounstro) {
+
+
+  $sentenciaDelete =
+
+  "delete from  mounstro_Tipo
+  where idMounstro = :idMounstro;";
+
+  $sentencia = $conexion->prepare($sentenciaDelete);
+  $sentencia->bindParam(':idMounstro', $idMounstro);
+
+  $sentencia->execute();
+
+
 }

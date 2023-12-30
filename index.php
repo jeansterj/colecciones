@@ -3,6 +3,10 @@
 require_once('./php_librarys/bd.php');
 
 $cartas = selectCard();
+$tipos = selectTypes();
+$atributos = selectAtribut();
+
+
 
 ?>
 
@@ -30,24 +34,15 @@ $cartas = selectCard();
       <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Opciones de Cartas
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="./registroCard.php">Crear</a></li>
-              <li><a class="dropdown-item" href="#">Modificar</a></li>
-              <li><a class="dropdown-item" href="#">Eliminar</a></li>
-            </ul>
-          </li>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </ul>
-      </div>
+
+
+      <a href="./registroCard.php">Crear</a>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      </ul>
+    </div>
     </div>
   </nav>
 </header>
@@ -66,23 +61,61 @@ $cartas = selectCard();
           <img src="img/<?php echo $carta['img']; ?>" class="card-img-top" alt="...">
           <div class="card-body">
 
-            <h4><button id="nivel<?php echo $carta['idMounstro'] ?>" disabled><?php echo "Nivel " . $carta['nivel'] ?></button></h4>
 
-            <h4><button id="atributo<?php echo $carta['idMounstro'] ?>" disabled><?php echo "Atributo " . $carta['Atributo'] ?></button></h4>
+            <h4><button id="nivel<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalNivel<?= $carta['idMounstro'] ?>">
+                <?php echo "Nivel " . $carta['nivel'] ?></button></h4>
 
-            <h2 class="card-title"><button id="nombre<?php echo $carta['idMounstro'] ?>" disabled><?php echo  $carta['nombre'] ?></button></h2>
+            <h4><button id="atributo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtributo<?= $carta['idMounstro'] ?>">
+                <?php echo "Atributo " . $carta['Atributo'] ?></button></h4>
 
-            <h4><button id="tipo<?php echo $carta['idMounstro'] ?>" disabled><?php echo "Tipo  " . $carta['Tipos'] ?></button></h4>
+            <h2 class="card-title"><button id="nombre<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalnombre<?= $carta['idMounstro'] ?>">
+                <?php echo  $carta['nombre'] ?></button></h2>
 
-            <p class="card-text"><button id="descripcion<?php echo $carta['idMounstro'] ?>" disabled><?php echo $carta['descripcion'] ?></button></p>
+            <h4><button id="tipo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalTipos<?= $carta['idMounstro'] ?>">
+                <?php echo "Tipo  " . $carta['Tipos'] ?></button></h4>
 
-            <p><button id="atkBut<?php echo $carta['idMounstro'] ?>" disabled><?php echo $carta['ataque'] . " ATK" ?></button></p>
+            <p class="card-text"><button id="descripcion<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDescripcion<?= $carta['idMounstro'] ?>">
+                <?php echo $carta['descripcion'] ?></button></p>
 
-            <p><button id="defBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalnombreusu<?= $carta['idMounstro'] ?>">
-            <?php echo $carta['defensa'] . " DEF" ?></button></p>
+            <p><button id="atkBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtaque<?= $carta['idMounstro'] ?>">
+                <?php echo $carta['ataque'] . " ATK" ?></button></p>
 
-            <button class="habilitar" id="habilitar" onclick="habilitarBotones(<?php echo $carta['idMounstro'] ?>)">modificacion</button>
-            <button class="deshabilitar" id="deshabilitar" onclick="deshabilitarBotones(<?php echo $carta['idMounstro'] ?>)">completar modificacion</button>
+            <p><button id="defBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDefensa<?= $carta['idMounstro'] ?>">
+                <?php echo $carta['defensa'] . " DEF" ?></button></p>
+
+            <button id="habilitar<?php echo $carta['idMounstro'] ?>" onclick="habilitarBotones(<?php echo $carta['idMounstro'] ?>)">modificacion</button>
+            <button style="display: none;" id="deshabilitar<?php echo $carta['idMounstro'] ?>" onclick="deshabilitarBotones(<?php echo $carta['idMounstro'] ?>)">completar modificacion</button>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirDelete<?= $carta['idMounstro'] ?>">Eliminar Carta</button>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalConfirDelete<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalConfirDelete" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Seguro de eliminar la siguiente carta :
+                <?= $carta['nombre'] ?>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                <button type="submit" class="btn btn-danger" name="deleteCard">Eliminar Carta</button>
+              </form>
+
+              </form>
+
+
+
+
+            </div>
 
           </div>
         </div>
@@ -90,46 +123,236 @@ $cartas = selectCard();
 
 
 
-      <div class="modal fade" id="modalnombreusu<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalnombreusu<?= $carta['idMounstro'] ?>" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
-            <?= $carta['nombre'] ?>
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      <div class="modal fade" id="modalnombre<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalnombre<?= $carta['idMounstro'] ?>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
+                <?= $carta['nombre'] ?>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+                <input autofocus class="form-control mb-3" type="text" name="newNombre">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" name="updateNombre">Confirmar
+                  modificacion</button>
+              </form>
+
+
+
+
+            </div>
+
+          </div>
         </div>
-        <div class="modal-body">
-
-          <form action="" method="POST" enctype="multipart/form-data">
-
-            <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
-            <input autofocus class="form-control mb-3" type="text" name="newnombreUsuario">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary" name="updatenombreUsuario">Confirmar
-              modificacion</button>
-          </form>
-
-
-
-
-        </div>
-
       </div>
-    </div>
-  </div>
+
+      <div class="modal fade" id="modalDescripcion<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalDescripcion<?= $carta['idMounstro'] ?>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
+                <?= $carta['descripcion'] ?>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+                <input autofocus class="form-control mb-3" type="text" name="newDescripcion">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" name="updateDescripcion">Confirmar
+                  modificacion</button>
+              </form>
+
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalNivel<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalNivel<?= $carta['idMounstro'] ?>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
+                <?= $carta['nivel'] ?>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+                <input autofocus class="form-control mb-3" type="text" name="newNivel">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" name="updateNivel">Confirmar
+                  modificacion</button>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalAtaque<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalAtaque<?= $carta['idMounstro'] ?>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
+                <?= $carta['ataque'] ?>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+                <input autofocus class="form-control mb-3" type="text" name="newnAtaque">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" name="updateAtk">Confirmar
+                  modificacion</button>
+              </form>
+
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalDefensa<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalDefensa<?= $carta['idMounstro'] ?>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
+                <?= $carta['defensa'] ?>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+                <input autofocus class="form-control mb-3" type="text" name="newDefensa">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" name="updateDef">Confirmar
+                  modificacion</button>
+              </form>
+
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalTipos<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalTipos<?= $carta['idMounstro'] ?>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
+                <?= $carta['Tipos'] ?>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+                <label class="form-label">Seleciona el Tipo</label>
+                <?php
+                foreach ($tipos as $tipo) { ?>
+
+                  <div class="form-check">
+
+
+                    <input type="checkbox" class="btn-check" id="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>" autocomplete="off" name="newtipos[]" value="<?= $tipo['idTipo'] ?>">
+                    <label class="btn btn-primary" for="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"><?= $tipo['nombreTipo'] ?></label>
+
+
+                  </div>
+                <?php } ?>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" name="updateTipos">Confirmar
+                  modificacion</button>
+              </form>
+
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalAtributo<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalAtributo<?= $carta['idMounstro'] ?>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
+                <?= $carta['Atributo'] ?>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+
+                <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+                <select class="form-select" aria-label="Default select example" name='newAtributo'>
+                  <option selected>Selecciona un atributo</option>
+
+
+                  <?php
+                  foreach ($atributos as $atributo) { ?>
+                    <option value="<?= $atributo['idAtributo'] ?>"><?= $atributo['nombreAtributo'] ?></option>
+                  <?php } ?>
+
+                </select>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" name="updateAtribut">Confirmar
+                  modificacion</button>
+              </form>
+
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
 
 
     <?php } ?>
 
 
 
-
-
-
   </div>
-
-
 
 
 

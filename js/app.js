@@ -1,5 +1,5 @@
-let botonH = document.getElementById("habilitar")
-let botonD = document.getElementById("deshabilitar")
+
+
 
 function cambiarEstadoElementos(id, deshabilitar) {
     let elementos = ["nivel", "atributo", "nombre", "descripcion", "tipo", "atkBut", "defBut"];
@@ -10,19 +10,29 @@ function cambiarEstadoElementos(id, deshabilitar) {
     });
 }
 
-function actualizarClases(boton, quitar, agregar) {
-    boton.classList.remove(quitar);
-    boton.classList.add(agregar);
-}
+
 
 function habilitarBotones(id) {
+    
+    let botonH = "habilitar" + id
+    let botonD = "deshabilitar" + id
+
     cambiarEstadoElementos(id, false);
-    actualizarClases(botonH, "habilitar", "deshabilitar");
-    actualizarClases(botonD, "deshabilitar", "habilitar");
+    document.getElementById(botonH).style.display = "none";
+
+    document.getElementById(botonD).style.display = "block";
+
+
 }
 
 function deshabilitarBotones(id) {
+  
+    let botonH = "habilitar" + id
+    let botonD = "deshabilitar" + id
+
     cambiarEstadoElementos(id, true);
-    actualizarClases(botonD, "habilitar", "deshabilitar");
-    actualizarClases(botonH, "deshabilitar", "habilitar");
+    document.getElementById(botonD).style.display = "none";
+
+    document.getElementById(botonH).style.display = "block";
+
 }
