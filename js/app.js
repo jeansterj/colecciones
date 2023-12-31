@@ -2,7 +2,7 @@
 
 
 function cambiarEstadoElementos(id, deshabilitar) {
-    let elementos = ["nivel", "atributo", "nombre", "descripcion", "tipo", "atkBut", "defBut"];
+    let elementos = ["nivel", "atributo", "nombre", "descripcion", "tipo", "atkBut", "defBut", "img"];
 
     elementos.forEach(elemento => {
         let elementoActual = document.getElementById(elemento + id);

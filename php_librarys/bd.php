@@ -80,6 +80,66 @@ function selectCard()
   return $resultado;
 }
 
+function selectUniqueCard($nombre)
+
+{
+
+  $conexion = openBd();
+
+
+  $sentenciaSelect =
+
+
+    "select 
+
+    mounstro.idMounstro,
+    mounstro.nombre, 
+    mounstro.descripcion,
+    mounstro.ataque,
+    mounstro.defensa,
+    GROUP_CONCAT(tipo.nombreTipo SEPARATOR '/') AS Tipos,
+    atributo.nombreAtributo AS Atributo,
+    mounstro.nivel,
+    mounstro.img
+
+    from mounstro
+    
+    LEFT JOIN 
+    mounstro_Tipo ON mounstro.idMounstro = mounstro_Tipo.idMounstro
+    LEFT JOIN 
+    tipo ON tipo.idTipo = mounstro_Tipo.idTipo
+    LEFT JOIN 
+    atributo ON mounstro.atributo = atributo.idAtributo
+
+    WHERE mounstro.nombre = :nombre
+
+    GROUP BY 
+    mounstro.idMounstro,
+    mounstro.nombre, 
+    mounstro.descripcion,
+    mounstro.ataque,
+    mounstro.defensa,
+    atributo.nombreAtributo,
+    mounstro.nivel,
+    mounstro.img;
+
+    
+    ";
+
+
+  $sentencia = $conexion->prepare($sentenciaSelect);
+  $sentencia->bindParam(':nombre', $nombre);
+  $sentencia->execute();
+
+  $resultado = $sentencia->fetchAll();
+
+
+
+  $conexion = closeBd();
+
+  return $resultado;
+}
+
 function selectTypes()
 
 {

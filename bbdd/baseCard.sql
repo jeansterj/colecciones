@@ -26,7 +26,7 @@ ataque INT NOT NULL,
 defensa INT DEFAULT 0,
 atributo INT NOT NULL ,
 nivel INT,
-img VARCHAR (255) NOT NULL UNIQUE,
+img VARCHAR (255) NOT NULL,
 
 FOREIGN KEY (atributo) REFERENCES atributo(idAtributo)
 

@@ -65,19 +65,19 @@ $atributos = selectAtribut();
           <div class="card-body">
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1" name='nombre' placeholder="Kuriboh">
+              <input type="text" required class="form-control" id="exampleFormControlInput1" name='nombre' placeholder="Kuriboh" maxlength="22">
             </div>
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='descripcion' placeholder="Durante el cálculo de daño, si el monstruo de tu adversario ataca (Efecto Rápido): puedes descartar esta carta; no recibes daño de batalla de esa batalla."></textarea>
+              <textarea required class="form-control" id="exampleFormControlTextarea1" rows="3" name='descripcion' maxlength="100" placeholder="Durante el cálculo de daño, si el monstruo de tu adversario ataca (Efecto Rápido): puedes descartar esta carta; no recibes daño de batalla de esa batalla."></textarea>
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">ATK</label>
-              <input type="number" class="form-control" id="exampleFormControlInput1" name='ataque' placeholder="300">
+              <input type="number" class="form-control" id="exampleFormControlInput1" name='ataque' placeholder="300" required min="0" max="9999">
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">DEF</label>
-              <input type="number" class="form-control" id="exampleFormControlInput1" name='defensa' placeholder="200">
+              <input type="number" class="form-control" id="exampleFormControlInput1" name='defensa' placeholder="200" min="0" max="9999">
             </div>
 
             <div class="mb-3">
@@ -87,7 +87,7 @@ $atributos = selectAtribut();
 
                 <?php
                 foreach ($atributos as $atributo) { ?>
-                  <option value="<?= $atributo['idAtributo'] ?>"><?= $atributo['nombreAtributo'] ?></option>
+                  <option required value="<?= $atributo['idAtributo'] ?>"><?= $atributo['nombreAtributo'] ?></option>
                 <?php } ?>
 
               </select>
@@ -116,7 +116,7 @@ $atributos = selectAtribut();
 
             <div class="mb-3">
               <label for="formFile" class="form-label">Imagen</label>
-              <input class="form-control" type="file" id="formFile" name="img">
+              <input class="form-control" type="file" id="formFile" name="img" required>
             </div>
 
             <div class="col-12">

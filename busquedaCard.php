@@ -2,12 +2,12 @@
 
 require_once('./php_librarys/bd.php');
 
-$cartas = selectCard();
+$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+
+
 $tipos = selectTypes();
 $atributos = selectAtribut();
-
-
-
+$cartas = selectUniqueCard($nombre);
 ?>
 
 
@@ -35,8 +35,8 @@ $atributos = selectAtribut();
 
 
       <a class="btn btn-outline-info" role="button" aria-pressed="true" href="./registroCard.php">Crear Carta</a>
-      <form class="d-flex" action="./busquedaCard.php" method="POST">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="nombre">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
       </ul>
