@@ -2,6 +2,7 @@ body {
 
     background-image: url(../img/tablero_Yugi2.jpg);
     background-size: cover;
+    font-family: Didot !important;
 
 }
 
@@ -31,21 +32,21 @@ button img {
     background-image: url(../img/plantilla.png) !important;
     background-repeat: no-repeat;
 
-    padding: 10px;
+    padding: 15px;
     color: black;
-    width: 350px;
-    background-size: 350px;
+    width: 384px;
+    background-size: 380px;
 
 }
 
 .ajudteBody {
-    width: 350px;
+    width: 385px;
     font-family: inherit;
 
 }
 
-.card {
-    height: 515px !important;
+.cardUni {
+    height: 525px !important;
 }
 
 .cardFirtPart {
@@ -54,6 +55,7 @@ button img {
     margin-top: -12PX;
     display: flex;
     align-items: self-start;
+    font-weight: bold 200 !important;
 
 }
 
@@ -75,7 +77,7 @@ button img {
 .cardLevel {
     justify-content: end;
     display: flex;
-    margin-top: -10px;
+    margin-top: -34px;
     height: 40px;
     align-items: center;
 }
@@ -88,33 +90,39 @@ button img {
 }
 
 .cardImg {
-    width: 275px;
+    padding-top: 4px;
+    padding-left: 5px;
+    width: 302px;
     border-radius: 5px;
 }
 
 .cardType {
-    margin-left: -10px;
-    margin-top: 5px;
-    color: black;
-    font-size: 15px;
+
+    max-width: 349px;
+    text-align: left;
+    margin-left: -20px;
+    margin-top: 40px;
+    font-size: 10px;
     font-family: inherit;
+    white-space: normal;
+    word-wrap: break-word;
 
 }
 
 .cardDescription {
-    font-size: 15px;
+    font-size: 16px;
     font-family: inherit;
-    color: black;
-    width: 300px;
-    text-decoration: solid;
-    text-align: justify;
+    width: 360px;
+    text-align: left;
+    margin-top: -20px;
+    margin-left: -20px;
 }
 
 .cardPuntation{
     display: flex;
-    margin-right: -20px;
+    margin-right: -12px;
     justify-content: end;
-    margin-top: -12px;
+    margin-top: -21px;
 }
 
 .textPuntation{
@@ -131,10 +139,9 @@ button img {
 
 .botonesModifi{
 
-    margin-top: -28px;
     align-items: center;
     display: flex;
-    justify-content: flex-end;
+    justify-content:flex-start;
     height: 25px;
 
 
@@ -154,3 +161,13 @@ button img {
 
 }
 
+.space{
+    margin-left: 10px;
+    padding-right: 12px;
+}
+
+.cardPuntationContainer {
+    position: absolute;
+    bottom: 20px;
+    right: 33px;
+}
