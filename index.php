@@ -50,6 +50,7 @@ $atributos = selectAtribut();
 
 
   <div class="container-fluid">
+  <?php require_once('./php_partials/mensajes.php'); ?>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4">
 
       <?php

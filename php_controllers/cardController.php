@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once('../php_librarys/bd.php');
 
 if (isset($_POST['insert'])) {
@@ -16,9 +18,21 @@ if (isset($_POST['insert'])) {
         $tipos_seleccionados
     );
 
-    header('Location: ../index.php');
-    exit();
-}
+    if (isset($_SESSION['error'])) 
+    {
+        header('Location: ../registroCard.php');
+        exit();
+    }
+    } else
+    
+    {
+        header('Location: ../index.php');
+        exit();
+    }
+
+    
+
+   
 
 if (isset($_POST['updateNombre'])) {
 

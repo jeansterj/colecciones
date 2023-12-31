@@ -1,5 +1,52 @@
 <?php
 
+
+function errorMensaje($e)
+
+{
+
+  if (!empty($e->errorInfo[1])) 
+  {
+  
+    switch ($e->errorInfo[1]) 
+    
+    {
+      case 1062:
+        $mensaje = 'Registro duplicado';
+        break;
+      case 1451:
+        $mensaje = 'Registro con elementos relacionados';  
+        break;
+      default:
+        $mensaje = $e->errorInfo[1] . ' - ' . $e->errorInfo[2];
+        break;
+    }
+  
+  }
+  else
+  {
+    switch ($e->getCode()) 
+    {
+      case 1044:
+        $mensaje = "Usuario y/o password incorrecto";
+        break;
+      case 1049: 
+        $mensaje = "Usuario y/o password incorrecto";
+        break;
+        case 2002: 
+          $mensaje = "No se encuentra el servidor";
+          break;
+      default:
+      $mensaje = $e->getCode() . ' - ' . $e->getMensaje();
+        break;
+    }
+
+  }
+
+  return $mensaje;
+  
+}
+
 function openBd()
 
 {
@@ -188,7 +235,8 @@ function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel,
 
 {
 
-  $conexion = openBd();
+  try {
+    $conexion = openBd();
 
 
   $sentenciaInsert = " insert into mounstro (nombre,descripcion,ataque,defensa,atributo,nivel,img)
@@ -206,23 +254,52 @@ function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel,
 
 
   $sentencia->execute();
+  
 
   $idMounstro = $conexion->lastInsertId();
 
  insertTypes($tipos_seleccionados,$idMounstro,$conexion);
+
+ $_SESSION['mensaje'] = 'Registro insertado correctamente';
+
+  } catch (PDOException $e) 
+  
+  {
+
+    $_SESSION['error'] = errorMensaje($e);
+    $carta['nombre'] = $nombre;
+    $carta['descripcion'] = $descripcion;
+    $carta['ataque'] = $ataque;
+    $carta['defensa'] = $defensa;
+    $carta['atributo'] = $atributo;
+    $carta['nivel'] = $nivel;
+    $carta['img'] = $img;
+    $_SESSION['carta'] = $carta;
+
+  }
+
+ 
 
 
   $conexion = closeBd();
 }
 
 function insertTypes($tipos_seleccionados,$idMounstro,$conexion) {
-  foreach ($tipos_seleccionados as $tipo) {
-    $sentenciaTipo  = "insert into mounstro_Tipo (idMounstro, idTipo) values (:idMounstro, :idTipo)";
-    $sentenciaTipo  = $conexion->prepare($sentenciaTipo);
-    $sentenciaTipo->bindParam(':idMounstro', $idMounstro);
-    $sentenciaTipo->bindParam(':idTipo', $tipo);
-    $sentenciaTipo->execute();
+
+  try {
+    foreach ($tipos_seleccionados as $tipo) {
+      $sentenciaTipo  = "insert into mounstro_Tipo (idMounstro, idTipo) values (:idMounstro, :idTipo)";
+      $sentenciaTipo  = $conexion->prepare($sentenciaTipo);
+      $sentenciaTipo->bindParam(':idMounstro', $idMounstro);
+      $sentenciaTipo->bindParam(':idTipo', $tipo);
+      $sentenciaTipo->execute();
+    }  } catch (PDOException $e) {
+      $carta['idMounstro'] = $idMounstro;
+      $carta['idTipo'] = $idMounstro;
+
   }
+
+
 }
 
 function updateName($idMounstro,$nombre)
