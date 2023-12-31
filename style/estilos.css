@@ -1,23 +1,156 @@
-body{
+body {
 
-background-image: url(../img/tablero_Yugi2.jpg);
-background-size: cover;
-
-}
-
-form.bodyRegister{
-
-color: white !important;
-
+    background-image: url(../img/tablero_Yugi2.jpg);
+    background-size: cover;
 
 }
 
-.ajusteImg{
-    width: 45px;
-}
+form.bodyRegister {
 
-button img{
-    
-    margin-right: 10px ;
+    color: white !important;
+
 
 }
+
+.card-body {
+    color: black;
+}
+
+.ajusteImg {
+    width: 30px;
+}
+
+button img {
+
+    margin-right: 10px;
+
+}
+
+.plantilla {
+
+    background-image: url(../img/plantilla.png) !important;
+    background-repeat: no-repeat;
+
+    padding: 10px;
+    color: black;
+    width: 350px;
+    background-size: 350px;
+
+}
+
+.ajudteBody {
+    width: 350px;
+    font-family: inherit;
+
+}
+
+.card {
+    height: 515px !important;
+}
+
+.cardFirtPart {
+    justify-content: space-between;
+    margin-left: -12px;
+    margin-top: -12PX;
+    display: flex;
+    align-items: self-start;
+
+}
+
+.cardFirtPart button img {
+    width: 32px;
+}
+
+.cardAtribute {
+    margin-top: 10px;
+    margin-right: -15px;
+    padding: 0px;
+    justify-content: flex-end;
+    display: flex;
+    align-items: self-start;
+
+
+}
+
+.cardLevel {
+    justify-content: end;
+    display: flex;
+    margin-top: -10px;
+    height: 40px;
+    align-items: center;
+}
+
+.cardButImg {
+    height: 275px;
+    border: none;
+    background: none;
+    width: 308px;
+}
+
+.cardImg {
+    width: 275px;
+    border-radius: 5px;
+}
+
+.cardType {
+    margin-left: -10px;
+    margin-top: 5px;
+    color: black;
+    font-size: 15px;
+    font-family: inherit;
+
+}
+
+.cardDescription {
+    font-size: 15px;
+    font-family: inherit;
+    color: black;
+    width: 300px;
+    text-decoration: solid;
+    text-align: justify;
+}
+
+.cardPuntation{
+    display: flex;
+    margin-right: -20px;
+    justify-content: end;
+    margin-top: -12px;
+}
+
+.textPuntation{
+
+    font-size: 16px;
+}
+
+.modificares{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+
+}
+
+.botonesModifi{
+
+    margin-top: -28px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    height: 25px;
+
+
+}
+
+.modDanger{
+    padding: 0;
+    height: 32px;
+    padding-left: 8px;
+    width: 50px;
+}
+
+
+.btn-outline-light {
+    border: none;
+    opacity: 1;
+
+}
+

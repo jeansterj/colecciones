@@ -18,10 +18,11 @@ $atributos = selectAtribut();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="./style/estilos.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
   </script>
+    <link rel="stylesheet" href="./style/estilos.css">
+
 
 </head>
 
@@ -31,9 +32,6 @@ $atributos = selectAtribut();
       <a class="navbar-brand" href="#">
         <img src="img/Logo_Yugioh.png" alt="Logo_Yugioh" style="width: 180px; height: 50px;" class="mr-2">
       </a>
-      <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
 
       <a href="./registroCard.php">Crear</a>
@@ -50,43 +48,57 @@ $atributos = selectAtribut();
 <body>
 
 
-  <div class="container">
 
 
     <?php
     foreach ($cartas as $carta) { ?>
+  <div class="container-fluid">
 
-      <div class="card clickable-card " style="width: 18rem;">
-        <div class="card bg-dark" style="width: 18rem; color: white;">
-          <img src="img/<?php echo $carta['img']; ?>" class="card-img-top" alt="...">
+      <div class="card clickable-card ajudteBody">
+        <div class="card bg-dark plantilla">
           <div class="card-body">
+            <div class="cardFirtPart">
 
+            <button class="btn btn-lg btn-outline-light " style="color: black;" id="nombre<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalnombre<?= $carta['idMounstro'] ?>">
+                <?php echo  $carta['nombre'] ?></button>
 
-            <h4><button class="btn btn-lg btn-outline-light" id="nivel<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalNivel<?= $carta['idMounstro'] ?>">
-                <?php echo "Nivel " . $carta['nivel'] ?></button></h4>
+            <button class="btn btn-lg btn-outline-light cardAtribute "style="color: black;" id="atributo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtributo<?= $carta['idMounstro'] ?>">
+                <img src="./img/<?php echo $carta['Atributo'] ?>.png" alt="<?php $carta['Atributo'] ?>"></button>
+                
+              </div>
+              <div class="cardLevel">
+            <button class="btn btn-lg btn-outline-light " style="color: black;" id="nivel<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalNivel<?= $carta['idMounstro'] ?>">
+                <?php echo "Nivel " . $carta['nivel'] ?></button>
+                </div>
 
-            <h4><button class="btn btn-lg btn-outline-light" id="atributo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtributo<?= $carta['idMounstro'] ?>">
-                <?php echo "Atributo " . $carta['Atributo'] ?></button></h4>
+                <div><button class="cardButImg"><img src="./img/<?php echo $carta['img'] ?>" class="cardImg" alt="<?php echo  $carta['nombre'] ?>"></button></div>
 
-            <h2 class="card-title"><button class="btn btn-lg btn-outline-light" id="nombre<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalnombre<?= $carta['idMounstro'] ?>">
-                <?php echo  $carta['nombre'] ?></button></h2>
+                <div class="modificadores">
+            <button class="btn btn-lg btn-outline-light cardType" style="color: black;" id="tipo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalTipos<?= $carta['idMounstro'] ?>">
+            <strong> <?php echo "Tipo  " . $carta['Tipos'] ?></strong></button>
 
-            <h4><button class="btn btn-lg btn-outline-light" id="tipo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalTipos<?= $carta['idMounstro'] ?>">
-                <?php echo "Tipo  " . $carta['Tipos'] ?></button></h4>
+            <div class="botonesModifi">
 
-            <p class="card-text"><button class="btn btn-lg btn-outline-light" id="descripcion<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDescripcion<?= $carta['idMounstro'] ?>">
-                <?php echo $carta['descripcion'] ?></button></p>
+            <button class="btn btn-success modDanger" id="habilitar<?php echo $carta['idMounstro'] ?>" onclick="habilitarBotones(<?php echo $carta['idMounstro'] ?>)"><img class="ajusteImg" src="./img/modif.png" alt="modificar"></button>
+            <button class="btn btn-danger modDanger" style="display: none;" id="deshabilitar<?php echo $carta['idMounstro'] ?>" onclick="deshabilitarBotones(<?php echo $carta['idMounstro'] ?>)">completar modificacion</button>
+            <button class="btn btn-danger modDanger" data-bs-toggle="modal" data-bs-target="#modalConfirDelete<?= $carta['idMounstro'] ?>"><img class="ajusteImg" src="./img/eliminar.png" alt="eliminarr"></button>
+            
+            </div>
 
-            <p><button class="btn btn-lg btn-outline-light" id="atkBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtaque<?= $carta['idMounstro'] ?>">
-                <?php echo $carta['ataque'] . " ATK" ?></button></p>
+           </div>
 
-            <p><button class="btn btn-lg btn-outline-light" id="defBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDefensa<?= $carta['idMounstro'] ?>">
-                <?php echo $carta['defensa'] . " DEF" ?></button></p>
+            <button class="btn btn-lg btn-outline-light cardDescription" style="color: black;" id="descripcion<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDescripcion<?= $carta['idMounstro'] ?>">
+                <?php echo $carta['descripcion'] ?></button>
 
-            <button class="btn btn-success" id="habilitar<?php echo $carta['idMounstro'] ?>" onclick="habilitarBotones(<?php echo $carta['idMounstro'] ?>)"><img class="ajusteImg" src="./img/modif.png" alt="modificar"></button>
-            <button style="display: none;" id="deshabilitar<?php echo $carta['idMounstro'] ?>" onclick="deshabilitarBotones(<?php echo $carta['idMounstro'] ?>)">completar modificacion</button>
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirDelete<?= $carta['idMounstro'] ?>"><img class="ajusteImg" src="./img/eliminar.png" alt="eliminarr"></button>
+                <div class="cardPuntation">
 
+            <button class="btn btn-lg btn-outline-light textPuntation" style="color: black;" id="atkBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalAtaque<?= $carta['idMounstro'] ?>">
+                <b><?php echo $carta['ataque'] ?></button></b>
+
+            <button class="btn btn-lg btn-outline-light textPuntation" style="color: black;" id="defBut<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalDefensa<?= $carta['idMounstro'] ?>">
+               <b><?php echo $carta['defensa'] ?></button></b> 
+                </div>
+           
           </div>
         </div>
       </div>
