@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 
 require_once('../php_librarys/bd.php');
 
@@ -23,15 +22,15 @@ if (isset($_POST['insert'])) {
         header('Location: ../registroCard.php');
         exit();
     }
-    } else
+     else
     
-    {
+    { 
         header('Location: ../index.php');
         exit();
-    }
+   } 
 
     
-
+}
    
 
 if (isset($_POST['updateNombre'])) {
@@ -42,8 +41,17 @@ if (isset($_POST['updateNombre'])) {
 
 
     );
-    header('Location: ../index.php');
-    exit();
+    if (isset($_SESSION['error'])) 
+    {
+        header('Location: ../registroCard.php');
+        exit();
+    }
+     else
+    
+    { 
+        header('Location: ../index.php');
+        exit();
+   } 
 }
 
 if (isset($_POST['updateDescripcion'])) {

@@ -2,15 +2,16 @@
 
 if (isset($_SESSION['mensaje'])) { ?>
 
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
 
         <?php
         echo $_SESSION['mensaje'];
         unset($_SESSION['mensaje']);
         ?>
 
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </button>
     </div>
 
@@ -20,15 +21,14 @@ if (isset($_SESSION['mensaje'])) { ?>
 
 if (isset($_SESSION['error'])) { ?>
 
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
 
         <?php
         echo $_SESSION['error'];
         unset($_SESSION['error']);
         ?>
 
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </button>
     </div>
 

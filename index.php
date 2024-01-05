@@ -36,8 +36,8 @@ $atributos = selectAtribut();
 
       <a class="btn btn-outline-info" role="button" aria-pressed="true" href="./registroCard.php">Crear Carta</a>
       <form class="d-flex" action="./busquedaCard.php" method="POST">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="nombre">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="nombre">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
       </ul>
     </div>
@@ -50,7 +50,27 @@ $atributos = selectAtribut();
 
 
   <div class="container-fluid">
-  <?php require_once('./php_partials/mensajes.php'); ?>
+    <?php require_once('./php_partials/mensajes.php');
+
+
+    if (isset($_SESSION['carta'])) {
+      $carta = $_SESSION['carta'];
+      unset($_SESSION['carta']);
+    } else {
+
+      $carta = [
+        'nombre' => '',
+        'descripcion' => '',
+        'nivel' => '',
+        'atributo' => '',
+        'ataque' => '',
+        'defensa' => '',
+        'img' => ''
+      ];
+    }
+
+
+    ?>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4">
 
       <?php
@@ -126,6 +146,7 @@ $atributos = selectAtribut();
             <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
 
               <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 
               <button type="submit" class="btn btn-danger" name="deleteCard">Eliminar Carta</button>
@@ -159,7 +180,8 @@ $atributos = selectAtribut();
             <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
 
               <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
-              <input autofocus class="form-control mb-3" type="text" name="newNombre">
+              <input autofocus class="form-control mb-3" type="text" name="newNombre" value="<?php echo $carta['nombre'];  ?>">
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success" name="updateNombre">Confirmar
                 modificacion</button>
@@ -188,7 +210,8 @@ $atributos = selectAtribut();
             <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
 
               <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
-              <input autofocus class="form-control mb-3" type="text" name="newDescripcion">
+              <input autofocus class="form-control mb-3" type="text" name="newDescripcion" maxlength="100">
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success" name="updateDescripcion">Confirmar
                 modificacion</button>
@@ -218,7 +241,8 @@ $atributos = selectAtribut();
 
               <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
 
-              <input autofocus class="form-control mb-3" name="newNivel" type="number" min="0" max="12" required>
+              <input autofocus class="form-control mb-3" name="newNivel" type="number" min="0" max="12" required value="<?php echo $carta['nivel'];  ?>">
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success" name="updateNivel">Confirmar
                 modificacion</button>
@@ -244,7 +268,8 @@ $atributos = selectAtribut();
             <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
 
               <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
-              <input autofocus class="form-control mb-3" name="newnAtaque" type="number" min="0" max="9999" required>
+              <input autofocus class="form-control mb-3" name="newnAtaque" type="number" min="0" max="9999" required value="<?php echo $carta['ataque']; ?>">
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success" name="updateAtk">Confirmar
                 modificacion</button>
@@ -273,7 +298,8 @@ $atributos = selectAtribut();
             <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
 
               <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
-              <input autofocus class="form-control mb-3" name="newDefensa" type="number" min="0" max="9999" required>
+              <input autofocus class="form-control mb-3" name="newDefensa" type="number" min="0" max="9999" required value="<?php echo $carta['defensa'];  ?>">
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success" name="updateDef">Confirmar
                 modificacion</button>
@@ -315,6 +341,7 @@ $atributos = selectAtribut();
 
                 </div>
               <?php } ?>
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success" name="updateTipos">Confirmar
                 modificacion</button>
@@ -349,10 +376,14 @@ $atributos = selectAtribut();
 
                 <?php
                 foreach ($atributos as $atributo) { ?>
-                  <option value="<?= $atributo['idAtributo'] ?>"><?= $atributo['nombreAtributo'] ?></option>
+
+<option required value="<?= $atributo['idAtributo'] ?>" <?php echo (isset($carta['atributo']) && $carta['atributo'] == $atributo['idAtributo']) ? 'selected' : '';  ?>>
+        <?= $atributo['nombreAtributo'] ?>
+    </option>
                 <?php } ?>
 
               </select>
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success" name="updateAtribut">Confirmar
                 modificacion</button>
@@ -383,6 +414,7 @@ $atributos = selectAtribut();
               <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
               <label for="formFile" class="form-label">Imagen</label>
               <input class="form-control" type="file" id="formFile" name="newImg" required>
+              <br>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success" name="updateImg">Confirmar
                 modificacion</button>
