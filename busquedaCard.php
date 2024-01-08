@@ -104,7 +104,7 @@ foreach ($cartas as $carta) { ?>
           </div>
 
           <div><button disabled class="cardButImg" id="img<?php echo $carta['idMounstro'] ?>">
-              <img src="./img/<?php echo $carta['img'] ?>" class="cardImg" alt="<?php echo  $carta['nombre'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalimg<?= $carta['idMounstro'] ?>">></button></div>
+              <img src="./<?php echo $carta['img'] ?>" class="cardImg" alt="<?php echo  $carta['nombre'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalimg<?= $carta['idMounstro'] ?>">></button></div>
 
           <button class="btn btn-lg btn-outline-light cardType" style="color: black;" id="tipo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalTipos<?= $carta['idMounstro'] ?>">
             <strong> <?php echo "[" . $carta['Tipos'] . "]" ?></strong></button>
@@ -144,7 +144,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <br>
@@ -178,7 +178,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <input autofocus class="form-control mb-3" type="text" name="newNombre" value="<?php echo $carta['nombre'];  ?>">
@@ -208,7 +208,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <input autofocus class="form-control mb-3" type="text" name="newDescripcion" maxlength="100">
@@ -238,7 +238,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
 
@@ -266,7 +266,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <input autofocus class="form-control mb-3" name="newnAtaque" type="number" min="0" max="9999" required value="<?php echo $carta['ataque']; ?>">
@@ -296,7 +296,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <input autofocus class="form-control mb-3" name="newDefensa" type="number" min="0" max="9999" required value="<?php echo $carta['defensa'];  ?>">
@@ -326,7 +326,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <label class="form-label">Seleciona el Tipo</label>
@@ -368,7 +368,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <select class="form-select" aria-label="Default select example" name='newAtributo'>
@@ -410,7 +410,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <label for="formFile" class="form-label">Imagen</label>

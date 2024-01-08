@@ -45,7 +45,7 @@ FOREIGN KEY (idTipo) REFERENCES Tipo (idTipo)
 
 INSERT INTO atributo (nombreAtributo)  VALUES ('Luz'), ('Oscuridad'), ('Fuego'), ('Agua'), ('Tierra'), ('Viento');
 INSERT INTO tipo (nombreTipo)  VALUES ('LANZADOR DE CONJUROS'), ('BESTIA'), ('CIBERSO'), ('GUERRERO'), ('DEMONIO'), ('DRAGON'), ('ILUSION'), ('MAQUINA') ;
-INSERT INTO mounstro (nombre,descripcion,ataque,defensa,atributo,nivel,img)  VALUES ('MAGO OSCURO','El mas grande de los magos en relación con el ataque y la defensa',2500,2000,2,7,'dark_Magician.png');
+INSERT INTO mounstro (nombre,descripcion,ataque,defensa,atributo,nivel,img)  VALUES ('MAGO OSCURO','El mas grande de los magos en relación con el ataque y la defensa',2500,2000,2,7,'img/mounstros/dark_Magician.png');
 INSERT INTO mounstro_Tipo VALUES ('1','2');
 INSERT INTO mounstro_Tipo VALUES ('1','3');
 

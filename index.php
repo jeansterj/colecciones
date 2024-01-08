@@ -101,9 +101,8 @@ $atributos = selectAtribut();
                     <?php echo "Nivel " . $carta['nivel'] ?></button>
 
                 </div>
-
                 <div><button disabled class="cardButImg" id="img<?php echo $carta['idMounstro'] ?>">
-                    <img src="./img/<?php echo $carta['img'] ?>" class="cardImg" alt="<?php echo  $carta['nombre'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalimg<?= $carta['idMounstro'] ?>">></button></div>
+                    <img src="./<?php echo $carta['img'] ?>" class="cardImg" alt="<?php echo  $carta['nombre'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalimg<?= $carta['idMounstro'] ?>"></button></div>
 
                 <button class="btn btn-lg btn-outline-light cardType" style="color: black;" id="tipo<?php echo $carta['idMounstro'] ?>" disabled data-bs-toggle="modal" data-bs-target="#modalTipos<?= $carta['idMounstro'] ?>">
                   <strong> <?php echo "[" . $carta['Tipos'] . "]" ?></strong></button>
@@ -403,7 +402,7 @@ $atributos = selectAtribut();
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
-              <img class="modalImg" src="./img/<?= $carta['img'] ?>" alt="">
+              <img class="modalImg" src="./<?= $carta['img'] ?>" alt="">
             </h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>

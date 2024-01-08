@@ -45,7 +45,7 @@ $atributos = selectAtribut();
 
 <body>
 
-  <form action="./php_controllers/cardController.php" method="post" class="bodyRegister">
+  <form action="./php_controllers/cardController.php" enctype="multipart/form-data" method="post" class="bodyRegister">
     <div class="container" style="color: white;">
 
       <?php  require_once('./php_partials/mensajes.php');
