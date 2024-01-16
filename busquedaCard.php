@@ -368,7 +368,7 @@ foreach ($cartas as $carta) { ?>
     </div>
     <div class="modal-body">
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data" enctype="multipart/form-data">
+      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
         <select class="form-select" aria-label="Default select example" name='newAtributo'>

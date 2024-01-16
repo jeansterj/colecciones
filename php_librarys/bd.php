@@ -241,7 +241,9 @@ function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel,
 {
 
    try {
+
     $conexion = openBd();
+    $conexion->beginTransaction();
 
 
   $sentenciaInsert = " insert into mounstro (nombre,descripcion,ataque,defensa,atributo,nivel,img)
@@ -265,11 +267,14 @@ function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel,
 
  insertTypes($tipos_seleccionados,$idMounstro,$conexion);
 
+ $conexion->commit();
+
  $_SESSION['mensaje'] = 'Registro insertado correctamente';
 
   } catch (PDOException $e) 
   
   {
+    $conexion->rollback();
 
     $_SESSION['error'] = errorMensaje($e);
     $carta['nombre'] = $nombre;
@@ -278,12 +283,10 @@ function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel,
     $carta['defensa'] = $defensa;
     $carta['atributo'] = $atributo;
     $carta['nivel'] = $nivel;
+    $carta['tipos_seleccionados'] = $tipos_seleccionados;
     $_SESSION['carta'] = $carta;
 
   }
-
- 
-
 
   $conexion = closeBd();
 }
@@ -306,6 +309,8 @@ function updateName($idMounstro,$nombre)
 
   try {
     $conexion = openBd();
+    $conexion->beginTransaction();
+
 
     $sentenciaUpdate =
   
@@ -319,7 +324,10 @@ function updateName($idMounstro,$nombre)
   
   
     $sentencia->execute();
+    $conexion->commit();
+
     } catch (PDOException $e) {
+      $conexion->rollback();
 
       $_SESSION['error'] = errorMensaje($e);
       $carta['nombre'] = $nombre;
@@ -335,6 +343,7 @@ function updateDescription($idMounstro,$descripcion)
   try {
 
   $conexion = openBd();
+  $conexion->beginTransaction();
 
   $sentenciaUpdate =
 
@@ -348,7 +357,10 @@ function updateDescription($idMounstro,$descripcion)
 
 
   $sentencia->execute();
+  $conexion->commit();
+
 } catch (PDOException $e) {
+  $conexion->rollback();
 
   $_SESSION['error'] = errorMensaje($e);
   $carta['nombre'] = $descripcion;
@@ -363,6 +375,8 @@ function updateLevel($idMounstro,$nivel)
   try {
 
   $conexion = openBd();
+  $conexion->beginTransaction();
+
 
   $sentenciaUpdate =
 
@@ -376,7 +390,10 @@ function updateLevel($idMounstro,$nivel)
 
 
   $sentencia->execute();
+  $conexion->commit();
+
 } catch (PDOException $e) {
+  $conexion->rollback();
 
   $_SESSION['error'] = errorMensaje($e);
   $carta['nombre'] = $nivel;
@@ -390,6 +407,7 @@ function updateAtk($idMounstro,$ataque)
   try {
 
   $conexion = openBd();
+  $conexion->beginTransaction();
 
   $sentenciaUpdate =
 
@@ -403,8 +421,11 @@ function updateAtk($idMounstro,$ataque)
 
 
   $sentencia->execute();
+  $conexion->commit();
+
 
 } catch (PDOException $e) {
+  $conexion->rollback();
 
   $_SESSION['error'] = errorMensaje($e);
   $carta['nombre'] = $ataque;
@@ -421,6 +442,7 @@ function updateDef($idMounstro,$defensa)
 
 
   $conexion = openBd();
+  $conexion->beginTransaction();
 
   $sentenciaUpdate =
 
@@ -434,8 +456,11 @@ function updateDef($idMounstro,$defensa)
 
 
   $sentencia->execute();
-} catch (PDOException $e) {
+  $conexion->commit();
 
+  
+} catch (PDOException $e) {
+  $conexion->rollback();
   $_SESSION['error'] = errorMensaje($e);
   $carta['nombre'] = $defensa;
   $_SESSION['carta'] = $carta;
@@ -448,6 +473,8 @@ function updateAtribut($idMounstro,$atributo)
   try {
 
   $conexion = openBd();
+  $conexion->beginTransaction();
+
 
   $sentenciaUpdate =
 
@@ -461,8 +488,10 @@ function updateAtribut($idMounstro,$atributo)
 
 
   $sentencia->execute();
-} catch (PDOException $e) {
+  $conexion->commit();
 
+} catch (PDOException $e) {
+  $conexion->rollback();
   $_SESSION['error'] = errorMensaje($e);
   $carta['nombre'] = $atributo;
   $_SESSION['carta'] = $carta;
@@ -488,6 +517,7 @@ function updateImg($idMounstro,$img)
   try {
 
   $conexion = openBd();
+  $conexion->beginTransaction();
 
   $sentenciaUpdate =
 
@@ -501,9 +531,11 @@ function updateImg($idMounstro,$img)
 
 
   $sentencia->execute();
+  $conexion->commit();
+
 
 } catch (PDOException $e) {
-
+  $conexion->rollback();
   $_SESSION['error'] = errorMensaje($e);
   $carta['nombre'] = $img;
   $_SESSION['carta'] = $carta;
@@ -517,6 +549,7 @@ function deleteCard($idMounstro) {
 
   $conexion = openBd();
 
+
   deleteTypes($conexion,$idMounstro);
 
   $sentenciaDelete =
@@ -529,8 +562,8 @@ function deleteCard($idMounstro) {
 
   $sentencia->execute();
 
-} catch (PDOException $e) {
 
+} catch (PDOException $e) {
   $_SESSION['error'] = errorMensaje($e);
 
 }
@@ -544,7 +577,6 @@ function deleteCard($idMounstro) {
 function deleteTypes($conexion,$idMounstro) {
 
   try {
-
   $sentenciaDelete =
 
   "delete from  mounstro_Tipo
@@ -554,6 +586,7 @@ function deleteTypes($conexion,$idMounstro) {
   $sentencia->bindParam(':idMounstro', $idMounstro);
 
   $sentencia->execute();
+
 } catch (PDOException $e) {
 
   $_SESSION['error'] = errorMensaje($e);

@@ -161,17 +161,17 @@ if (isset($_POST['updateAtribut'])) {
 }
 
 if (isset($_POST['updateTipos'])) {
-    $tipos_seleccionados = isset($_POST['newtipos']) ? $_POST['newtipos'] : [];
-
+    $tipos_seleccionados = isset($_POST['newTipos']) ? $_POST['newTipos'] : [];
 
     updateTypes(
         $_POST['idMounstro'],
         $tipos_seleccionados
-
     );
+
     header('Location: ../index.php');
     exit();
 }
+
 
 if (isset($_POST['deleteCard'])) {
 
