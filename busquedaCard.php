@@ -66,7 +66,9 @@ $cartas = selectUniqueCard($nombre);
         'atributo' => '',
         'ataque' => '',
         'defensa' => '',
-        'img' => ''
+        'img' => '',
+        'tipos_seleccionados' => [] 
+
       ];
     }
 
@@ -315,47 +317,47 @@ foreach ($cartas as $carta) { ?>
 </div>
 </div>
 
-<div class="modal fade" id="modalTipos<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalTipos<?= $carta['idMounstro'] ?>" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual :
-        <?= $carta['Tipos'] ?>
-      </h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
+<div class="modal fade" id="modalTipos<?= $carta['idMounstro'] ?>" tabindex="-1"
+    aria-labelledby="modalTipos<?= $carta['idMounstro'] ?>" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel2">Actual: <?= $carta['Tipos'] ?></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
+            <label class="form-label">Selecciona el Tipo</label>
 
-      <form action="./php_controllers/cardController.php" method="POST" enctype="multipart/form-data" enctype="multipart/form-data">
-
-        <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
-        <label class="form-label">Seleciona el Tipo</label>
+            <?php 
+$mounstroCard = selectIdCard($carta['idMounstro']);
+foreach ($tipos as $tipo) { ?>
+    <div class="form-check">
         <?php
-        foreach ($tipos as $tipo) { ?>
+        $tipos_seleccionados = isset($mounstroCard['Tipos']) ? explode('/', $mounstroCard['Tipos']) : [];
+        $checked = (in_array($tipo['nombreTipo'], $tipos_seleccionados)) ? 'checked' : '';
+        ?>
 
-          <div class="form-check">
+        <input type="checkbox" class="btn-check" id="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"
+            autocomplete="off" name="newTipos[]" value="<?= $tipo['idTipo'] ?>" <?= $checked ?>>
 
-
-            <input type="checkbox" class="btn-check" id="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>" autocomplete="off" name="newtipos[]" value="<?= $tipo['idTipo'] ?>">
-            <label class="btn btn-primary" for="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"><?= $tipo['nombreTipo'] ?></label>
-
-
-          </div>
-        <?php } ?>
-        <br>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-success" name="updateTipos">Confirmar
-          modificacion</button>
-      </form>
-
-
-
-
+        <label class="btn btn-primary"
+            for="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"><?= $tipo['nombreTipo'] ?></label>
     </div>
+<?php } ?>
 
+
+            <br>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-success" name="updateTipos">Confirmar modificacion</button>
+          </form>
+        </div>
+
+        <!-- Cierre de la etiqueta modal-content -->
+      </div>
+    </div>
   </div>
-</div>
-</div>
 
 <div class="modal fade" id="modalAtributo<?= $carta['idMounstro'] ?>" tabindex="-1" aria-labelledby="modalAtributo<?= $carta['idMounstro'] ?>" aria-hidden="true">
 <div class="modal-dialog">

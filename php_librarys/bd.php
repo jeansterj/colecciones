@@ -183,9 +183,7 @@ function selectIdCard($id)
   $sentencia->bindParam(':id', $id);
   $sentencia->execute();
 
-  $resultado = $sentencia->fetchAll();
-
-
+  $resultado = $sentencia->fetch();
 
   $conexion = closeBd();
 
@@ -295,6 +293,29 @@ function selectAtribut()
   $conexion = closeBd();
 
   return $resultado;
+}
+
+function selectRutaImagen($id)
+
+{
+  $conexion = openBd();
+
+  $sentenciaSelect = 
+
+  "select img from mounstro
+    where idMounstro = :id";
+
+    $sentencia = $conexion->prepare($sentenciaSelect);
+    $sentencia->bindParam(':id', $id);
+    $sentencia->execute();
+
+    $resultado = $sentencia->fetch();
+
+
+  $conexion = closeBd();
+
+  return $resultado;
+
 }
 
 function insertCard($nombre, $descripcion, $ataque, $defensa, $atributo, $nivel, $img, $tipos_seleccionados)

@@ -175,11 +175,19 @@ if (isset($_POST['updateTipos'])) {
 
 if (isset($_POST['deleteCard'])) {
 
+    $rutaImagen = selectRutaImagen($_POST['idMounstro']);
+    $rutaCompleta = "../" . $rutaImagen['img'];
+
+   
+    unlink($rutaCompleta);
+
 
     deleteCard(
         $_POST['idMounstro'],
 
     );
+
+
     header('Location: ../index.php');
     exit();
 }

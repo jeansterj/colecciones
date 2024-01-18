@@ -343,12 +343,12 @@ $mounstroCard = selectIdCard($carta['idMounstro']);
 foreach ($tipos as $tipo) { ?>
     <div class="form-check">
         <?php
-        $tipos_seleccionados = isset($mounstroCard[0]['Tipos']) ? explode('/', $mounstroCard[0]['Tipos']) : [];
+        $tipos_seleccionados = isset($mounstroCard['Tipos']) ? explode('/', $mounstroCard['Tipos']) : [];
         $checked = (in_array($tipo['nombreTipo'], $tipos_seleccionados)) ? 'checked' : '';
         ?>
 
         <input type="checkbox" class="btn-check" id="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"
-            autocomplete="off" name="newTipos[<?= $carta['idMounstro'] ?>][]" value="<?= $tipo['idTipo'] ?>" <?= $checked ?>>
+            autocomplete="off" name="newTipos[]" value="<?= $tipo['idTipo'] ?>" <?= $checked ?>>
 
         <label class="btn btn-primary"
             for="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"><?= $tipo['nombreTipo'] ?></label>
