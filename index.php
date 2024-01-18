@@ -62,6 +62,7 @@ $atributos = selectAtribut();
         'img' => '',
         'tipos_seleccionados' => [] 
 
+
       ];
     }
 
@@ -337,32 +338,23 @@ $atributos = selectAtribut();
             <input type="hidden" name="idMounstro" value="<?= $carta['idMounstro'] ?>">
             <label class="form-label">Selecciona el Tipo</label>
 
-            <?php
-    $tipos_carta = isset($carta['Tipos']) ? explode('/', $carta['Tipos']) : [];
-    foreach ($tipos_carta as $tipo_carta) {
-    ?>
-            <div class="form-check">
-              <input type="checkbox" class="btn-check" id="check<?= $tipo_carta ?>_<?= $carta['idMounstro'] ?>"
-                autocomplete="off" name="newTipos[]" value="<?= $tipo_carta ?>" checked>
-              <label class="btn btn-primary"
-                for="check<?= $tipo_carta ?>_<?= $carta['idMounstro'] ?>"><?= $tipo_carta ?></label>
-            </div>
-            <?php } ?>
+            <?php 
+$mounstroCard = selectIdCard($carta['idMounstro']);
+foreach ($tipos as $tipo) { ?>
+    <div class="form-check">
+        <?php
+        $tipos_seleccionados = isset($mounstroCard[0]['Tipos']) ? explode('/', $mounstroCard[0]['Tipos']) : [];
+        $checked = (in_array($tipo['nombreTipo'], $tipos_seleccionados)) ? 'checked' : '';
+        ?>
 
-            <?php
-    foreach ($tipos as $tipo) {
-      if (!in_array($tipo['nombreTipo'], $tipos_carta)) {
-    ?>
-            <div class="form-check">
-              <input type="checkbox" class="btn-check" id="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"
-                autocomplete="off" name="newTipos[]" value="<?= $tipo['idTipo'] ?>">
-              <label class="btn btn-primary"
-                for="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"><?= $tipo['nombreTipo'] ?></label>
-            </div>
-            <?php
-      }
-    }
-    ?>
+        <input type="checkbox" class="btn-check" id="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"
+            autocomplete="off" name="newTipos[<?= $carta['idMounstro'] ?>][]" value="<?= $tipo['idTipo'] ?>" <?= $checked ?>>
+
+        <label class="btn btn-primary"
+            for="check<?= $tipo['idTipo'] ?>_<?= $carta['idMounstro'] ?>"><?= $tipo['nombreTipo'] ?></label>
+    </div>
+<?php } ?>
+
 
             <br>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
